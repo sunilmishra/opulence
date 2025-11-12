@@ -12,8 +12,8 @@ class EleganceController extends ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
-  late EleganceEntity _elegance;
-  EleganceEntity get elegance => _elegance;
+  late EleganceEntity _eleganceEntity;
+  EleganceEntity get elegance => _eleganceEntity;
 
   Object? _error;
   Object? get error => _error;
@@ -27,11 +27,10 @@ class EleganceController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final eleganceEntity = await repository.getRandomImage();
-      _elegance = eleganceEntity;
+      _eleganceEntity = await repository.getRandomImage();
 
       /// Load background color based on image palette
-      await _loadBgColor(_elegance.url);
+      await _loadBgColor(_eleganceEntity.url);
     } catch (e) {
       _error = e;
       _bgColor = null;
